@@ -59,6 +59,13 @@ namespace FormPlayground
                 return seed + f.ToString();
             });
             Console.WriteLine("{0}", total);
+
+            1.To(10).Each(i => Console.WriteLine("{0}", i));
+            1.To(10, open: true).Each(i => Console.WriteLine("{0}", i));
+            10.To(1).Each(i => Console.WriteLine("{0}", i));
+            10.To(1, open: true).Each(i => Console.WriteLine("{0}", i));
+            10.To(10).Each(i => Console.WriteLine("{0}", i));
+            10.To(10, open: true).Each(i => Console.WriteLine("{0}", i));
         }
     }
 }

@@ -4,14 +4,39 @@ using System.Windows.Forms;
 
 namespace me.venj.Extensions
 {
-    // int的扩展，增加了Times方法。
+    // int的扩展
     public static class IntExtension
     {
+        //增加了Times方法。
         public static void Times(this int me, Action action)
         {
             for (int i = 0; i < me; i++)
             {
                 action();
+            }
+        }
+
+        //增加了To方法。
+        public static IEnumerable<int> To(this int me, int end, bool open = false)
+        {
+            int incrementer = me;
+            if (me < end)
+            {
+                while (true)
+                {
+                    if (open == false && incrementer > end) break;
+                    if (open && incrementer >= end) break;
+                    yield return incrementer++;
+                }
+            }
+            else
+            {
+                while(true)
+                {
+                    if (open == false && incrementer < end) break;
+                    if (open && incrementer <= end) break;
+                    yield return incrementer--;
+                }
             }
         }
     }
@@ -36,6 +61,83 @@ namespace me.venj.Extensions
                 yield return f(t);
             }
         }
+
+        // 增加Find方法。需要改进。
+        // Caveat: 如果T为值类型，返回default(T)，可能并非正确结果。
+        public static T Find<T>(this IEnumerable<T> me, Predicate<T> p)
+        {
+            T result = default(T);
+            foreach (T t in me)
+            {
+                if (p(t))
+                {
+                    result = t;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        // 增加了Filter方法
+        public static IEnumerable<T> Filter<T>(this IEnumerable<T> me, Predicate<T> p)
+        {
+            foreach (T t in me)
+            {
+                if (p(t))
+                {
+                    yield return t;
+                }
+            }
+        }
+
+        // 增加了Reject方法
+        public static IEnumerable<T> Reject<T>(this IEnumerable<T> me, Predicate<T> p)
+        {
+            foreach (T t in me)
+            {
+                if (!p(t))
+                {
+                    yield return t;
+                }
+            }
+        }
+
+        // 增加了Every方法
+        public static bool Every<T>(this IEnumerable<T> me, Predicate<T> p)
+        {
+            bool result = true;
+
+            foreach (T t in me)
+            {
+                if (!p(t))
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        // 增加了Some方法
+        public static bool Some<T>(this IEnumerable<T> me, Predicate<T> p)
+        {
+            bool result = false;
+
+            foreach (T t in me)
+            {
+                if (p(t))
+                {
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+
 
         // 增加了Reduce方法。
         public static TResult Reduce<T, TResult>(this IEnumerable<T> me, TResult seed, Func<TResult, T, TResult> f)
