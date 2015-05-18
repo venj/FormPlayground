@@ -66,6 +66,9 @@ namespace FormPlayground
             10.To(1, open: true).Each(i => Console.WriteLine("{0}", i));
             10.To(10).Each(i => Console.WriteLine("{0}", i));
             10.To(10, open: true).Each(i => Console.WriteLine("{0}", i));
+
+            DateTime dt = 10.Days().FromNow();
+            Console.WriteLine("Time: {0}", dt);
         }
     }
 }

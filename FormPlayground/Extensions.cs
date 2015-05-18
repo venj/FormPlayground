@@ -39,6 +39,40 @@ namespace me.venj.Extensions
                 }
             }
         }
+
+        //增加了Seconds，Minutes，Hours，Days方法。
+        public static TimeSpan Seconds(this int me)
+        {
+            return TimeSpan.FromSeconds(me);
+        }
+        public static TimeSpan Minites(this int me)
+        {
+            return TimeSpan.FromMinutes(me);
+        }
+        public static TimeSpan Hours(this int me)
+        {
+            return TimeSpan.FromHours(me);
+        }
+        public static TimeSpan Days(this int me)
+        {
+            return TimeSpan.FromDays(me);
+        }
+    }
+
+    // TimeSpan扩展
+    public static class TimeSpanExtension
+    {
+        //增加了From方法。
+        public static DateTime From(this TimeSpan me, DateTime start)
+        {
+            return start.Add(me);
+        }
+
+        //增加了FromNow方法。
+        public static DateTime FromNow(this TimeSpan me)
+        {
+            return From(me, DateTime.Now);
+        }
     }
 
     // IEnumerable接口的扩展。
@@ -136,8 +170,6 @@ namespace me.venj.Extensions
 
             return result;
         }
-
-
 
         // 增加了Reduce方法。
         public static TResult Reduce<T, TResult>(this IEnumerable<T> me, TResult seed, Func<TResult, T, TResult> f)
