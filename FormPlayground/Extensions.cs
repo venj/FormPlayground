@@ -87,7 +87,7 @@ namespace me.venj.Extensions
             }
         }
 
-        // 增加了Map方法。
+        // 增加了Map方法。（这个方法与标准库的Select方法功能一致。）
         public static IEnumerable<TResult> Map<T, TResult>(this IEnumerable<T> me, Func<T, TResult> f)
         {
             foreach (T t in me)
